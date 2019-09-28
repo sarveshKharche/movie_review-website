@@ -1,0 +1,122 @@
+
+<html>
+<head>
+  <title>Daily Review</title>
+  <style>
+       body {
+  margin: 0;
+  font-family: Arial, Helvetica, sans-serif;
+}
+      body  {
+    height: 1600px;
+    background: linear-gradient(to bottom, #800000 0%, #ff99cc 100%)
+}
+   .topnav {
+      background-color: #333;
+      overflow: hidden;
+    }
+    .topnav a {
+      float: left
+      display: block;
+      color: #f2f2f2;
+      text-align: center;
+      padding: 103px 103px;
+      text-decoration: none;
+      font-size: 25px;
+      font-family: "Arial", Sans-serif;
+    }
+    .topnav a:hover {
+      background-color: #ddd;
+      color: black;
+    }
+    .topnav a.active {
+      background-color: #cc0000;
+      color: white;
+    }
+    input[type=text], select, textarea {
+      width: 100%;
+      padding: 12px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      box-sizing: border-box;
+      margin-top: 6px;
+      margin-bottom: 16px;
+      resize: vertical;
+    }
+    input[type=email], select, textarea {
+      width: 100%;
+      padding: 12px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      box-sizing: border-box;
+      margin-top: 6px;
+      margin-bottom: 16px;
+      resize: vertical;
+    }
+    input[type=submit] {
+      background-color: #cc0000;
+      color: white;
+      padding: 12px 20px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    input[type=submit]:hover {
+      background-color: #b30000;
+    }
+    .container {
+      border-radius: 5px;
+      background-color: #f2f2f2;
+      padding: 20px;
+    }
+  </style>
+</head>
+<body>
+  <div style="background-color:black">
+    <img src="logo.png" height=100px width=100px style="display:block; margin-left:auto; margin-right: auto;">
+  </div>
+  <div class="topnav">
+    <a href="homepage.html">Home</a>
+    <a href="movies.html" class="active">Movies</a>
+    <a href="tvshows.html">TV Shows</a>
+    <a href="toprated.html">Top Rated</a>
+    <a href="genre.html">Genre</a>
+  </div>
+
+<img src="Shutterislandposter.jpg" width="480" height="640"/style="display:block;margin-left:auto; margin-right:auto">
+<p><b>Shutter Island</b></p>
+<p><b>Synopsis:</b><br>
+Teddy Daniels and Chuck Aule, two US marshals, are sent to an asylum on a remote island in order to investigate the disappearance of a patient, but Teddy uncovers a shocking truth about the place.</p>
+<p><b>Release date</b>: 04 June 2010 (India)<br>
+<b>Director</b>: Martin Scorsese <br>
+<b>Budget</b>: 29.48 crores USD<br>
+<b>Music director</b>: Robbie Robertson</p>
+<b>Genre</b>: Mystery, Thriller <br>
+
+<p><b>Write a review</b>:<br>
+<div class="container">
+    <form action="action_page.php">
+
+      <label for="username">Username</label>
+      <input type="text" id="username" name="username" placeholder="Your Username..">
+
+      <label for="email">Email-ID</label>
+      <input type="email" id="email" name="email" placeholder="Your email..">
+
+      <label for="rating">Star Rating</label>
+      <select id="rating" name="rating">
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+        <option value="4">4</option>
+        <option value="5">5</option>
+      </select>
+
+      <label for="review">Review</label>
+      <textarea id="review" name="review" placeholder="Write your review.." style="height:200px"></textarea>
+
+      <input type="submit" value="Submit">
+
+    </form>
+  </div>
+</html>
