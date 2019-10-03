@@ -1,3 +1,29 @@
+<?php
+  $servername = "localhost";
+  $username = "root";
+  $password = "";
+  $dbname = "reviews";
+
+  // Create connection
+  $conn = new mysqli($servername, $username, $password, $dbname);
+  // Check connection
+  if ($conn->connect_error) {
+      die("Connection failed: " . $conn->connect_error);
+  }
+
+  $sql = "SELECT username,rating,review FROM reviews where movieid='tv4'";
+  $result = $conn->query($sql);
+  $res = [];
+  if ($result->num_rows > 0) {
+      // output data of each row
+      while($row = $result->fetch_assoc()) {
+          array_push($res,$row["username"]);
+          array_push($res,$row["rating"]);
+          array_push($res,$row["review"]);
+      }
+  }
+  $conn->close();
+?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -129,7 +155,7 @@ body.loaded {
   top: 0;
   z-index: -1;
   transform: translate3d(0,0,0) scale(1.25);
-  background: black url(../images/tv5.jpg) no-repeat center center;
+  background: black url(../images/tv2home.jpg) no-repeat center center;
   background-size: cover;
 }
 
@@ -149,13 +175,13 @@ main p { margin: 0 0 3rem 0; }
 
 
 
-table {
+.info_table table {
 border-collapse: collapse;
 width: 100%;
 color: #ffffff;
 }
 
-th, td {
+.info_table th, td {
 text-align: left;
 padding: 8px;
 }
@@ -228,28 +254,28 @@ input[type=submit]:hover {
 <!-- Other stuff -->
 <main>
   <article>
-    <h1 style="color:#ffffff;">Sacred Games</h1>
+    <h1 style="color:#ffffff;">Breaking Bad</h1>
     <div style="margin:7%">
-      <table>
+      <table class="info_table" style="color:#ffffff;">
         <tr>
           <th>Synopsis:</th>
-          <td>When police officer Sartaj Singh receives an anonymous tip about the location of criminal overlord Ganesh Gaitonde, he embarks on a chase around Mumbai in what becomes a dangerous cat-and-mouse game. Amidst the chaos, trappings of a corrupt underworld are revealed. After being removed from the Gaitonde case, Singh begins his own investigation as he works to save Mumbai from impending doom. Flashbacks reveal some of the crimes that Gaitonde has committed through the years.</td>
+          <td>Walter White, a chemistry teacher, discovers that he has cancer and decides to get into the meth-making business to repay his medical debts. His priorities begin to change when he partners with Jesse.</td>
         </tr>
         <tr>
           <th>Release Date:</th>
-          <td>28 June 2018 (India)</td>
+          <td>20 January 2008 (India)</td>
         </tr>
         <tr>
           <th>Director:</th>
-          <td>Anurag Kashyap, Vikramaditya Motwane</td>
+          <td>Vince Gilligan</td>
         </tr>
         <tr>
           <th>Distributor:</th>
-          <td>Netflix</td>
+          <td>Sony Pictures Television</td>
         </tr>
         <tr>
           <th>Cast:</th>
-          <td>Saif Ali Khan as Inspector Sartaj Singh,Nawazuddin Siddiqui as Ganesh Gaitonde,Radhika Apte as Anjali Mathur (season 1),Pankaj Tripathi as Khanna Guruji,Sobhita Dhulipala (season 2),Harshita Gaur (season 2),Kalki Koechlin as Batya Abelman (season 2),Ranvir Shorey as Shahid Khan (season 2)</td>
+          <td>Bryan Cranston,Anna Gunn,Aaron Paul,Dean Norris,Betsy Brandt,RJ Mitte,Bob Odenkirk,Giancarlo Esposito,Jonathan Banks,Laura Fraser,Jesse Plemons,Dave Porter</td>
         </tr>
         <tr>
           <th>Rating:</th>
@@ -262,14 +288,16 @@ input[type=submit]:hover {
       </table>
     </div>
     <div style="margin: 0% auto 0% 27%;">
-      <iframe width="560" height="315" src="https://www.youtube.com/embed/w-Xe8gLBc5I" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+      <iframe width="560" height="315" src="https://www.youtube.com/embed/HhesaQXLuRY" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
     </div>
 <div class="container" style="margin:10%">
-
+  <table id='review-con1' style="padding:15px;"></table>
+  <table id='review-con1' style="padding:15px;"></table>
+  <table id='review-con1' style="padding:15px;"></table>
 </div>
 </div>
     <div class="container" style="margin:10%">
-      <form action="action_page.php">
+      <form action="../insert.php" method="post">
 
         <label for="username">Username</label>
         <input type="text" id="username" name="username" placeholder="Your Username..">
@@ -288,7 +316,7 @@ input[type=submit]:hover {
 
         <label for="review">Review</label>
         <textarea id="review" name="review" placeholder="Write your review.." style="height:200px"></textarea>
-
+        <input type='hidden' value='tv4' name='movieid' >
         <input type="submit" value="Submit">
 
       </form>
@@ -297,6 +325,16 @@ input[type=submit]:hover {
 </main>
 
 <script>
+var res = <?php echo(json_encode($res)); ?>;
+var table = document.getElementById("review-con");
+var i = 0;
+
+document.addEventListener("DOMContentLoaded", function(event) {
+  document.getElementById("review-con1").innerHTML = '<tr><td>'+res[0]+'</td><td>Rating:'+res[1]+'/5</td></tr><tr colspan="2"><td>'+res[2]+'</td></tr>';
+  document.getElementById("review-con2").innerHTML = '<tr><td>'+res[3]+'</td><td>Rating:'+res[4]+'/5</td></tr><tr colspan="2"><td>'+res[5]+'</td></tr>';
+  document.getElementById("review-con3").innerHTML = '<tr><td>'+res[3]+'</td><td>Rating:'+res[4]+'/5</td></tr><tr colspan="2"><td>'+res[5]+'</td></tr>';
+});
+
 function myFunction() {
   var x = document.getElementById("myTopnav");
   if (x.className === "topnav") {

@@ -1,3 +1,30 @@
+<?php
+  $servername = "localhost";
+  $username = "root";
+  $password = "";
+  $dbname = "reviews";
+
+  // Create connection
+  $conn = new mysqli($servername, $username, $password, $dbname);
+  // Check connection
+  if ($conn->connect_error) {
+      die("Connection failed: " . $conn->connect_error);
+  }
+
+  $sql = "SELECT username,rating,review FROM reviews where movieid='movie4'";
+  $result = $conn->query($sql);
+  $res = [];
+  if ($result->num_rows > 0) {
+      // output data of each row
+      while($row = $result->fetch_assoc()) {
+          array_push($res,$row["username"]);
+          array_push($res,$row["rating"]);
+          array_push($res,$row["review"]);
+      }
+  }
+  $conn->close();
+?>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -129,7 +156,7 @@ body.loaded {
   top: 0;
   z-index: -1;
   transform: translate3d(0,0,0) scale(1.25);
-  background: black url(../images/tv4.jpg) no-repeat center center;
+  background: black url(../images/mov4.jpg) no-repeat center center;
   background-size: cover;
 }
 
@@ -149,13 +176,13 @@ main p { margin: 0 0 3rem 0; }
 
 
 
-table {
+.info_table table {
 border-collapse: collapse;
 width: 100%;
 color: #ffffff;
 }
 
-th, td {
+.info_table th, td {
 text-align: left;
 padding: 8px;
 }
@@ -211,11 +238,11 @@ input[type=submit]:hover {
   </div>
 <div class="topnav" id="myTopnav" >
   <a href="../homepage.html">Home</a>
-  <a href="../movies.html">Movies</a>
-  <a href="../tvshows.html" class="active">TV Shows</a>
+  <a href="../movies.html" class="active">Movies</a>
+  <a href="../tvshows.html">TV Shows</a>
   <a href="../toprated.html">Top Rated</a>
   <a href="../genre.html">Genre</a>
-  <a href="../javascript:void(0);" class="icon" onclick="myFunction()">
+  <a href="javascript:void(0);" class="icon" onclick="myFunction()">
     <i class="fa fa-bars"></i>
   </a>
 </div>
@@ -228,28 +255,28 @@ input[type=submit]:hover {
 <!-- Other stuff -->
 <main>
   <article>
-    <h1 style="color:#ffffff;">Mirzapur</h1>
+    <h1 style="color:#ffffff;">The Dark Knight Rises</h1>
     <div style="margin:7%">
-      <table>
+      <table class="info_table" style="color:#ffffff;">
         <tr>
           <th>Synopsis:</th>
-          <td>Akhandanand Tripathi made millions exporting carpets and became the mafia boss of Mirzapur. His son Munna, an unworthy, power-hungry heir, stops at nothing to continue his father's legacy.</td>
+          <td>Bane, an imposing terrorist, attacks Gotham City and disrupts its eight-year-long period of peace. This forces Bruce Wayne to come out of hiding and don the cape and cowl of Batman again.</td>
         </tr>
         <tr>
           <th>Release Date:</th>
-          <td>16 November 2018 (India)</td>
+          <td>20 July 2012 (India)</td>
         </tr>
         <tr>
           <th>Director:</th>
-          <td>Karan Anshuman, Gurmmeet Singh</td>
+          <td>Christopher Nolan</td>
         </tr>
         <tr>
-          <th>Distributor:</th>
-          <td>Amazon Prime</td>
+          <th>Budget:</th>
+          <td>25 crores USD</td>
         </tr>
         <tr>
-          <th>Cast:</th>
-          <td>Rasika Dugal,Pankaj Tripathi,Shriya Pilgaonkar,Divyenndu,Amit Sial,Vikrant Massey,Rajesh Tailang,Shweta Tripathi,Sheeba Chaddha</td>
+          <th>Music director:</th>
+          <td>Hans Zimmer</td>
         </tr>
         <tr>
           <th>Rating:</th>
@@ -262,14 +289,16 @@ input[type=submit]:hover {
       </table>
     </div>
     <div style="margin: 0% auto 0% 27%;">
-      <iframe width="560" height="315" src="https://www.youtube.com/embed/ZNeGF-PvRHY" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+      <iframe width="560" height="315" src="https://www.youtube.com/embed/z5Humz3ONgk" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
     </div>
 <div class="container" style="margin:10%">
-
+  <table id='review-con1' style="padding:15px;"></table>
+  <table id='review-con1' style="padding:15px;"></table>
+  <table id='review-con1' style="padding:15px;"></table>
 </div>
 </div>
     <div class="container" style="margin:10%">
-      <form action="action_page.php">
+      <form action="../insert.php" method="post">
 
         <label for="username">Username</label>
         <input type="text" id="username" name="username" placeholder="Your Username..">
@@ -285,7 +314,7 @@ input[type=submit]:hover {
           <option value="4">4</option>
           <option value="5">5</option>
         </select>
-
+        <input type='hidden' value='movie4' name='movieid' >
         <label for="review">Review</label>
         <textarea id="review" name="review" placeholder="Write your review.." style="height:200px"></textarea>
 
@@ -297,6 +326,17 @@ input[type=submit]:hover {
 </main>
 
 <script>
+var res = <?php echo(json_encode($res)); ?>;
+var table = document.getElementById("review-con");
+var i = 0;
+
+document.addEventListener("DOMContentLoaded", function(event) {
+  document.getElementById("review-con1").innerHTML = '<tr><td>'+res[0]+'</td><td>Rating:'+res[1]+'/5</td></tr><tr colspan="2"><td>'+res[2]+'</td></tr>';
+  document.getElementById("review-con2").innerHTML = '<tr><td>'+res[3]+'</td><td>Rating:'+res[4]+'/5</td></tr><tr colspan="2"><td>'+res[5]+'</td></tr>';
+  document.getElementById("review-con3").innerHTML = '<tr><td>'+res[3]+'</td><td>Rating:'+res[4]+'/5</td></tr><tr colspan="2"><td>'+res[5]+'</td></tr>';
+});
+
+
 function myFunction() {
   var x = document.getElementById("myTopnav");
   if (x.className === "topnav") {

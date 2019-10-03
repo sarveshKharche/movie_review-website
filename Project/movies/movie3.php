@@ -1,3 +1,30 @@
+<?php
+  $servername = "localhost";
+  $username = "root";
+  $password = "";
+  $dbname = "reviews";
+
+  // Create connection
+  $conn = new mysqli($servername, $username, $password, $dbname);
+  // Check connection
+  if ($conn->connect_error) {
+      die("Connection failed: " . $conn->connect_error);
+  }
+
+  $sql = "SELECT username,rating,review FROM reviews where movieid='movie3'";
+  $result = $conn->query($sql);
+  $res = [];
+  if ($result->num_rows > 0) {
+      // output data of each row
+      while($row = $result->fetch_assoc()) {
+          array_push($res,$row["username"]);
+          array_push($res,$row["rating"]);
+          array_push($res,$row["review"]);
+      }
+  }
+  $conn->close();
+?>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -149,13 +176,13 @@ main p { margin: 0 0 3rem 0; }
 
 
 
-table {
+.info_table table {
 border-collapse: collapse;
 width: 100%;
 color: #ffffff;
 }
 
-th, td {
+.info_table th, td {
 text-align: left;
 padding: 8px;
 }
@@ -230,7 +257,7 @@ input[type=submit]:hover {
   <article>
     <h1 style="color:#ffffff;">Fast and Furious presents: Hobbs and Shaw</h1>
     <div style="margin:7%">
-      <table>
+      <table class="info_table" style="color:#ffffff;">
         <tr>
           <th>Synopsis:</th>
           <td>Ever since hulking lawman Hobbs (Johnson), a loyal agent of America's Diplomatic Security Service, and lawless outcast Shaw (Statham), a former British military elite operative, first faced off in 2015’s Furious 7, the duo have swapped smack talk and body blows as they’ve tried to take each other down. But when cyber-genetically enhanced anarchist Brixton (Idris Elba) gains control of an insidious bio-threat that could alter humanity forever — and bests a brilliant and fearless rogue MI6 agent (The Crown’s Vanessa Kirby), who just happens to be Shaw’s sister — these two sworn enemies will have to partner up to bring down the only guy who might be badder than themselves.</td>
@@ -265,11 +292,13 @@ input[type=submit]:hover {
       <iframe width="560" height="315" src="https://www.youtube.com/embed/9SA7FaKxZVI" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
     </div>
 <div class="container" style="margin:10%">
-
+  <table id='review-con1' style="padding:15px;"></table>
+  <table id='review-con1' style="padding:15px;"></table>
+  <table id='review-con1' style="padding:15px;"></table>
 </div>
 </div>
     <div class="container" style="margin:10%">
-      <form action="action_page.php">
+      <form action="../insert.php" method="post">
 
         <label for="username">Username</label>
         <input type="text" id="username" name="username" placeholder="Your Username..">
@@ -285,7 +314,7 @@ input[type=submit]:hover {
           <option value="4">4</option>
           <option value="5">5</option>
         </select>
-
+        <input type='hidden' value='movie3' name='movieid' >
         <label for="review">Review</label>
         <textarea id="review" name="review" placeholder="Write your review.." style="height:200px"></textarea>
 
@@ -297,6 +326,16 @@ input[type=submit]:hover {
 </main>
 
 <script>
+var res = <?php echo(json_encode($res)); ?>;
+var table = document.getElementById("review-con");
+var i = 0;
+
+document.addEventListener("DOMContentLoaded", function(event) {
+  document.getElementById("review-con1").innerHTML = '<tr><td>'+res[0]+'</td><td>Rating:'+res[1]+'/5</td></tr><tr colspan="2"><td>'+res[2]+'</td></tr>';
+  document.getElementById("review-con2").innerHTML = '<tr><td>'+res[3]+'</td><td>Rating:'+res[4]+'/5</td></tr><tr colspan="2"><td>'+res[5]+'</td></tr>';
+  document.getElementById("review-con3").innerHTML = '<tr><td>'+res[3]+'</td><td>Rating:'+res[4]+'/5</td></tr><tr colspan="2"><td>'+res[5]+'</td></tr>';
+});
+
 function myFunction() {
   var x = document.getElementById("myTopnav");
   if (x.className === "topnav") {
