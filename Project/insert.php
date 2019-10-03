@@ -32,3 +32,14 @@ if(!empty($username)|| !empty($email)|| !empty($rating) || !empty($review) || !e
 }
 
 ?>
+<html>
+<body>
+  <button onclick="goBack()">Return</button>
+
+  <script>
+    function goBack() {
+      window.history.back();
+    }
+  </script>
+</body>
+</html>

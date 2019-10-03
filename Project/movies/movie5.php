@@ -335,7 +335,7 @@ var i = 0;
 document.addEventListener("DOMContentLoaded", function(event) {
   document.getElementById("review-con1").innerHTML = '<tr><td>'+res[0]+'</td><td>Rating:'+res[1]+'/5</td></tr><tr colspan="2"><td>'+res[2]+'</td></tr>';
   document.getElementById("review-con2").innerHTML = '<tr><td>'+res[3]+'</td><td>Rating:'+res[4]+'/5</td></tr><tr colspan="2"><td>'+res[5]+'</td></tr>';
-  document.getElementById("review-con3").innerHTML = '<tr><td>'+res[3]+'</td><td>Rating:'+res[4]+'/5</td></tr><tr colspan="2"><td>'+res[5]+'</td></tr>';
+  document.getElementById("review-con3").innerHTML = '<tr><td>'+res[6]+'</td><td>Rating:'+res[7]+'/5</td></tr><tr colspan="2"><td>'+res[8]+'</td></tr>';
 });
 
 function myFunction() {
