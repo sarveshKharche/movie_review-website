@@ -16,14 +16,14 @@ if(!empty($username)|| !empty($email)|| !empty($rating) || !empty($review) || !e
   if(mysqli_connect_error()){
     die('Connect Error('.mysqli_connect_error().')'.mysqli_connect_error());
   }else {
-      $sql ="INSERT Into reviews(username,email,rating,review,movieid) values('".$username."','".$email."','".$rating."','".$review."','".$movieid."') ";
+    $sql ="INSERT Into reviews(username,email,rating,review,movieid) values('".$username."','".$email."','".$rating."','".$review."','".$movieid."') ";
 
-      if ($conn->query($sql) === TRUE) {
-        echo "New record created successfully";
-      } else {
-        echo "Error: " . $sql . "<br>" . $conn->error;
-      }
-      $conn->close();
+    if ($conn->query($sql) === TRUE) {
+      echo "New record created successfully";
+    } else {
+      echo "Error: " . $sql . "<br>" . $conn->error;
+    }
+    $conn->close();
   }
 
 }else {
@@ -37,9 +37,9 @@ if(!empty($username)|| !empty($email)|| !empty($rating) || !empty($review) || !e
   <button onclick="goBack()">Return</button>
 
   <script>
-    function goBack() {
-      window.history.back();
-    }
+  function goBack() {
+    window.history.back();
+  }
   </script>
 </body>
 </html>
