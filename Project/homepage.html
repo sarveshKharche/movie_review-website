@@ -195,11 +195,9 @@
 .container{
   margin: 2% 10% 5% 10%;
 }
-
-
-
 </style>
-<style type="text/css">.site-footer
+<style type="text/css">
+.site-footer
 {
   background-color:#26272b;
   padding:25px 0 5px;
@@ -361,7 +359,12 @@
     margin-right:0;
     font-weight:600
   }
-  }</style>
+}
+</style>
+
+
+</style>
+
 </head>
 <body>
   <div>
@@ -457,7 +460,7 @@
     </div>
   </div>
   <footer class="site-footer">
-    <div class="container">
+    <div class="container1">
       <div class="row">
         <div class="col-sm-12 col-md-6">
           <h6>About</h6>
@@ -468,75 +471,76 @@
         </div>
         <hr>
       </div>
-      <div class="container">
-        <div class="row">
-          <div class="col-md-8 col-sm-6 col-xs-1">
-            <p class="copyright-text">Copyright &copy; 2019 All Rights Reserved by
-              <a href="#">DailyReview</a>.
-            </p>
-          </div>
+    </div>
+    <div class="container1">
+      <div class="row">
+        <div class="col-md-8 col-sm-6 col-xs-1">
+          <p class="copyright-text">Copyright &copy; 2019 All Rights Reserved by
+            <a href="#">DailyReview</a>.
+          </p>
         </div>
       </div>
-    </footer>
-    <script>
-    function myFunction() {
-      var x = document.getElementById("myTopnav");
-      if (x.className === "topnav") {
-        x.className += " responsive";
-      } else {
-        x.className = "topnav";
-      }
+    </div>
+  </footer>
+  <script>
+  function myFunction() {
+    var x = document.getElementById("myTopnav");
+    if (x.className === "topnav") {
+      x.className += " responsive";
+    } else {
+      x.className = "topnav";
     }
+  }
 
 
 
-    var myIndex = 0;
-    carousel();
+  var myIndex = 0;
+  carousel();
 
-    function carousel() {
-      var i;
-      var x = document.getElementsByClassName("mySlides");
-      for (i = 0; i < x.length; i++) {
-        x[i].style.display = "none";
-      }
-      myIndex++;
-      if (myIndex > x.length) {myIndex = 1}
-      x[myIndex-1].style.display = "block";
-      setTimeout(carousel, 2000); // Change image every 2 seconds
+  function carousel() {
+    var i;
+    var x = document.getElementsByClassName("mySlides");
+    for (i = 0; i < x.length; i++) {
+      x[i].style.display = "none";
     }
+    myIndex++;
+    if (myIndex > x.length) {myIndex = 1}
+    x[myIndex-1].style.display = "block";
+    setTimeout(carousel, 2000); // Change image every 2 seconds
+  }
 
 
 
-    var slideIndex = 1;
-    showSlides(slideIndex);
+  var slideIndex = 1;
+  showSlides(slideIndex);
 
-    // Next/previous controls
-    function plusSlides(n) {
-      showSlides(slideIndex += n);
+  // Next/previous controls
+  function plusSlides(n) {
+    showSlides(slideIndex += n);
+  }
+
+  // Thumbnail image controls
+  function currentSlide(n) {
+    showSlides(slideIndex = n);
+  }
+
+  function showSlides(n) {
+    var i;
+    var slides = document.getElementsByClassName("mySlides");
+    var dots = document.getElementsByClassName("demo");
+    var captionText = document.getElementById("caption");
+    if (n > slides.length) {slideIndex = 1}
+    if (n < 1) {slideIndex = slides.length}
+    for (i = 0; i < slides.length; i++) {
+      slides[i].style.display = "none";
     }
-
-    // Thumbnail image controls
-    function currentSlide(n) {
-      showSlides(slideIndex = n);
+    for (i = 0; i < dots.length; i++) {
+      dots[i].className = dots[i].className.replace(" active", "");
     }
-
-    function showSlides(n) {
-      var i;
-      var slides = document.getElementsByClassName("mySlides");
-      var dots = document.getElementsByClassName("demo");
-      var captionText = document.getElementById("caption");
-      if (n > slides.length) {slideIndex = 1}
-      if (n < 1) {slideIndex = slides.length}
-      for (i = 0; i < slides.length; i++) {
-        slides[i].style.display = "none";
-      }
-      for (i = 0; i < dots.length; i++) {
-        dots[i].className = dots[i].className.replace(" active", "");
-      }
-      slides[slideIndex-1].style.display = "block";
-      dots[slideIndex-1].className += " active";
-      captionText.innerHTML = dots[slideIndex-1].alt;
-    }
+    slides[slideIndex-1].style.display = "block";
+    dots[slideIndex-1].className += " active";
+    captionText.innerHTML = dots[slideIndex-1].alt;
+  }
 
 
   </script>
